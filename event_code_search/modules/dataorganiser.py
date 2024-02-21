@@ -35,12 +35,16 @@ class DataOrganiser:
 
             for dt, icd in zip(date_list, icd_list):
                 if self.isnan(icd):
-                    break  # this is a break and not a pass as the data is ordered; once a nan always an nan
+                    break
                 else:
                     dct[icd].append(dt)
 
             if not dct:
                 continue
             dct_dates_feid_then_icd[feid] = dict(dct)
-
+        print('Printing first 5 key value pairs of organised data dictionary:')
+        for i, (key, value) in enumerate(dct_dates_feid_then_icd.items()):
+            print(key, value)
+            if i == 4:  # Stops after printing 5 items (0 to 4)
+                break
         return dct_dates_feid_then_icd
