@@ -3,10 +3,11 @@ from pathlib import Path
 import os
 
 class Config:
-    def __init__(self, dat_path, pkl_path, output_path, icd10_codes=[], icd9_codes=[], death_icd10_codes=[], opcs4_codes=[], all_causes_death=False):
+    def __init__(self, dat_path, pkl_path, output_path, output_filename, icd10_codes=[], icd9_codes=[], death_icd10_codes=[], opcs4_codes=[], all_causes_death=False):
         self.dat_path = dat_path
         self.pkl_path = pkl_path
         self.output_path = output_path
+        self.output_filename = output_filename
         self.icd10_codes = icd10_codes
         self.icd9_codes = icd9_codes
         self.death_icd10_codes = death_icd10_codes
@@ -22,6 +23,7 @@ class Config:
         parser.add_argument('--dat_path', type=Path, required=True, help='Path to the CSV data file containing the dataset.')
         parser.add_argument('--pkl_path', type=Path, required=True, help='Path to the pickle file containing preloaded event data.')
         parser.add_argument('--output_path', type=Path, required=True, help='Directory path for saving the output files.')
+        parser.add_argument('--output_filename', type=str, required=True, help='Filename for the output CSV file.')
         parser.add_argument('--icd10_codes', type=str, nargs='+', default=[], help='List of ICD10 codes of interest or path to text file containing codes. Space-separated if multiple or a single path to a file.')
         parser.add_argument('--icd9_codes', type=str, nargs='+', default=[], help='List of ICD9 codes of interest or path to text file containing codes. Space-separated if multiple or a single path to a file.')
         parser.add_argument('--death_icd10_codes', type=str, nargs='+', default=[], help='List of Death-related ICD10 codes of interest or path to text file containing codes. Space-separated if multiple or a single path to a file.')
@@ -50,8 +52,13 @@ class Config:
         opcs4_codes = process_codes_input(args.opcs4_codes)
 
         return Config(
-            dat_path=args.dat_path, pkl_path=args.pkl_path, output_path=args.output_path,
-            icd10_codes=icd10_codes, icd9_codes=icd9_codes,
-            death_icd10_codes=death_icd10_codes, opcs4_codes=opcs4_codes,
+            dat_path=args.dat_path,
+            pkl_path=args.pkl_path,
+            output_path=args.output_path,
+            output_filename=args.output_filename,
+            icd10_codes=icd10_codes,
+            icd9_codes=icd9_codes,
+            death_icd10_codes=death_icd10_codes,
+            opcs4_codes=opcs4_codes,
             all_causes_death=args.all_causes_death
         )

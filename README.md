@@ -38,7 +38,7 @@ pip install -e .
 ## Running:
 
 ```
-event_code_search --dat_path /path_to_outcome_data.csv --pkl_path /path_to_event_data.pkl --output_path /path_to_output --icd10_codes I10 I11 --all_causes_death
+event_code_search --dat_path /path_to_outcome_data.csv --pkl_path /path_to_event_data.pkl --output_path /path_to_output --output_filename "final_output.csv" --icd10_codes I10 I11 --all_causes_death
 ```
 
 All code arguments in the command can either be entered as a space-separated list, or if you have a longer list of codes you can use a text file (one code per row in the file):
@@ -46,12 +46,12 @@ All code arguments in the command can either be entered as a space-separated lis
 
 
 ```
-event_code_search -h 
-usage: event_code_search [-h] --dat_path DAT_PATH --pkl_path PKL_PATH --output_path OUTPUT_PATH [--icd10_codes ICD10_CODES [ICD10_CODES ...]]
+event_code_search -h
+usage: event_code_search [-h] --dat_path DAT_PATH --pkl_path PKL_PATH --output_path OUTPUT_PATH [--icd10_codes ICD10_CODES [ICD10_CODES ...]] --output_filename OUTPUT_FILENAME
                          [--icd9_codes ICD9_CODES [ICD9_CODES ...]] [--death_icd10_codes DEATH_ICD10_CODES [DEATH_ICD10_CODES ...]] [--opcs4_codes OPCS4_CODES [OPCS4_CODES ...]]
                          [--all_causes_death]
 
-Process and analyze medical event data from the UK Biobank.
+Tool to process and analyze medical event data from the UK Biobank.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -61,6 +61,8 @@ optional arguments:
                         Directory path for saving the output files.
   --icd10_codes ICD10_CODES [ICD10_CODES ...]
                         List of ICD10 codes of interest or path to text file containing codes. Space-separated if multiple or a single path to a file.
+  --output_filename OUTPUT_FILENAME
+                        Filename for the output CSV file.
   --icd9_codes ICD9_CODES [ICD9_CODES ...]
                         List of ICD9 codes of interest or path to text file containing codes. Space-separated if multiple or a single path to a file.
   --death_icd10_codes DEATH_ICD10_CODES [DEATH_ICD10_CODES ...]

@@ -17,7 +17,7 @@ class DataOrganiser:
         return not(self.isnan(x))
 
     def organiser(self, event_type):
-        print('Organising event codes and dates...')
+        print('Organising outcome and event codes and dates...')
         df_codes = self.event_data[event_type]
         df_dates = self.event_data[event_type + '_dates']
         df_codes.index = df_codes['eid']

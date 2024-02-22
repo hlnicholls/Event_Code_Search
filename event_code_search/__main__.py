@@ -17,7 +17,8 @@ def main():
     data_organiser = DataOrganiser(data_loader.event_data)
 
     # Search for events based on user-specified ICD codes and flags
-    event_searcher = EventSearcher(data_loader.event_data, data_organiser)
+    # Now passing output_path and output_filename to EventSearcher
+    event_searcher = EventSearcher(data_loader.event_data, data_organiser, cfg.output_path, cfg.output_filename)
     events_result = event_searcher.search_events(
         icd10_codes=cfg.icd10_codes,
         icd9_codes=cfg.icd9_codes,
@@ -28,7 +29,8 @@ def main():
 
     # Organise and output the final results
     final_data = OutputOrganiser.organise_output(events_result)
-    final_data.to_csv(f"{cfg.output_path}/final_organised_data.csv", index=False)
+    final_output_path = cfg.output_path / cfg.output_filename 
+    final_data.to_csv(final_output_path, index=False)
 
 if __name__ == "__main__":
     main()
