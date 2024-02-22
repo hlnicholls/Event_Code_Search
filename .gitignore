@@ -6,6 +6,9 @@ __pycache__/
 build/
 .DS_STORE
 
+example/
+.csv
+
 # C extensions
 *.so
 
