@@ -35,8 +35,7 @@ source /your_path/event_code_search/bin/activate
 pip install -e .
 ```
 
-
-## Running:
+## Running:
 
 ```
 event_code_search --dat_path /path_to_outcome_data.csv --pkl_path /path_to_event_data.pkl --output_path /path_to_output --icd10_codes I10 I11 --all_causes_death
