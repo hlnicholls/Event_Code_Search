@@ -4,6 +4,28 @@ import copy
 class OutputOrganiser:
     @staticmethod
     def organise_output(dataset, all_cause_mortality_only=False):
+        dataset_final_final2 = copy.deepcopy(dataset)
+        col_list = dataset_final_final2.columns.tolist()
+        col_list_dates = [k for k in col_list if 'date' in k]
+        for i in col_list_dates:
+            dataset_final_final2[i] = pd.to_datetime(dataset_final_final2[i])
+        visit_dates = ['Baseline_visit_date', 'Calibration_visit_date', 'Imaging_visit_date1', 'Imaging_visit_date2']
+        col_list_dates_relevant = [name for name in col_list_dates if not any(substring in name for substring in visit_dates)]
+        print(col_list_dates)
+        print(col_list_dates_relevant)
+        print('df before event_data is made')
+        print(dataset_final_final2.head(5))
+        dataset_final_final2['Event_date'] = dataset_final_final2[col_list_dates_relevant].min(axis=1)
+        dataset_final_final2 = dataset_final_final2.loc[:, ['feid']+visit_dates+['Event_date']]
+        dataset_final_final2 = dataset_final_final2.sort_values(by='feid', ascending=True)
+        print('final output')
+        print(dataset_final_final2.head(5))
+        return dataset_final_final2
+
+
+
+    """
+    def organise_output(dataset, all_cause_mortality_only=False):
         print("Starting output organisation...")
         
         dataset_copy = copy.deepcopy(dataset)
@@ -30,3 +52,4 @@ class OutputOrganiser:
         dataset_final = dataset_copy.loc[:, final_columns]
         print("Output organisation completed.")
         return dataset_final
+"""
