@@ -7,24 +7,43 @@ from event_code_search.config_class import Config  # Import the Config class
 import pickle as pkl
 
 def main():
-    cfg = Config.create_from_args()  # Instantiate Config with command-line arguments
+    """
+    Searching medical event data based on user-specified criteria.
 
-    # Load and prepare the data
-    #data_loader = DataLoader(cfg.dat_path)
-    #data_loader.load_outcome_data()
-    #data_loader.load_event_data(cfg.pkl_path)
+    Arguments:
+        --pkl_path (Path): Required. The path to the pickle file containing preloaded event data.
+        --output_path (Path): Required. The directory path where the output files will be saved.
+        --output_filename (str): Required. The filename for the output CSV file.
+        --icd10_codes (list[str]): Optional. A list of ICD-10 codes or a path to a text file containing these codes,
+                                used to filter events.
+        --icd9_codes (list[str]): Optional. A list of ICD-9 codes or a path to a text file containing these codes,
+                                used to filter events.
+        --death_icd10_codes (list[str]): Optional. A list of death-related ICD-10 codes or a path to a text file
+                                        containing these codes, used to filter events.
+        --opcs4_codes (list[str]): Optional. A list of OPCS-4 codes or a path to a text file containing these codes,
+                                used to filter events.
+        --all_causes_death (bool): Optional. A flag indicating whether to include all-cause mortality in the search.
 
-    #dat = pd.read_csv(cfg.dat_path, low_memory=False)
+    Methods:
+        Config.create_from_args():
+            Parses the command-line arguments to create a configuration object for the application.
+
+        EventSearcher.search_events():
+            Uses the provided ICD codes and flags to search through the preloaded event data and identify relevant
+            medical events.
+
+        OutputOrganiser.organise_output():
+            Takes the results of the event search and organizes them into a structured format suitable for output,
+            including calculating and formatting dates and event categories.
+    """
+
+    cfg = Config.create_from_args()  
+
     print('Reading in event data...')
     with open(cfg.pkl_path, 'rb') as f:
         event_data = pkl.load(f)
 
-    # Organise the event data
-    #data_organiser = DataOrganiser(data_loader.event_data)
-
-    # Search for events based on user-specified ICD codes and flags
-    # Now passing output_path and output_filename to EventSearcher
-    event_searcher = EventSearcher(event_data, cfg.output_path, cfg.output_filename) #data_organiser, 
+    event_searcher = EventSearcher(event_data, cfg.output_path, cfg.output_filename) 
     events_result = event_searcher.search_events(
         icd10_codes=cfg.icd10_codes,
         icd9_codes=cfg.icd9_codes,
@@ -33,7 +52,6 @@ def main():
         all_causes_death=cfg.all_causes_death
     )
 
-    # Organise and output the final results
     res_list_final ={'events':events_result}
     final_output_path = cfg.output_path / cfg.output_filename 
     res_df_final = {}
@@ -49,10 +67,6 @@ def main():
     for k in res_df_final.keys():
         print(k)
         res_df_final[k].to_csv(final_output_path, index=False)
-
-    #final_data = OutputOrganiser.organise_output(events_result)
-    #final_output_path = cfg.output_path / cfg.output_filename 
-    #final_data.to_csv(final_output_path, index=False)
 
 if __name__ == "__main__":
     main()

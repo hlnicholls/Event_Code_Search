@@ -3,6 +3,41 @@ from collections import defaultdict
 from natsort import natsorted
 
 class DataOrganiser:
+    """
+    Organizes event data based on specific event types, such as ICD codes, and their corresponding dates.
+
+    Attributes:
+        event_data (dict): Contains the preloaded event data with keys representing event types and values 
+                           being DataFrames of codes and dates.
+
+    Methods:
+        __init__(self, event_data):
+            Initializes the DataOrganiser with event data.
+
+            Arguments:
+                event_data (dict): The preloaded event data.
+
+        organiser(self, event_type):
+            Organizes event data by sorting and aligning event codes with their corresponding dates, based 
+            on the specified event type.
+
+            This method assumes the event data is structured with separate DataFrames for event codes and 
+            event dates, indexed by a unique event identifier (eid). It returns a dictionary mapping each 
+            eid to another dictionary, where each key is an event code and the value is a list of dates 
+            associated with that event.
+
+            Arguments:
+                event_type (str): The type of event to organize. Expected to correspond to keys in the 
+                                  event_data dictionary, with a suffix of '_dates' for date data.
+
+            Returns:
+                dict: A nested dictionary where the first level keys are eids, and the second level keys 
+                      are event codes with their associated dates as values.
+
+            The method includes helper functions:
+                isnan(x): Checks if the input is NaN (Not a Number).
+                notnan(x): Checks if the input is not NaN.
+    """
     def __init__(self, event_data):
         self.event_data = event_data
 
