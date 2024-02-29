@@ -13,12 +13,10 @@ class OutputOrganiser:
         col_list_dates_relevant = [name for name in col_list_dates if not any(substring in name for substring in visit_dates)]
         print(col_list_dates)
         print(col_list_dates_relevant)
-        print('df before event_data is made')
-        print(dataset_final_final2.head(5))
         dataset_final_final2['Event_date'] = dataset_final_final2[col_list_dates_relevant].min(axis=1)
         dataset_final_final2 = dataset_final_final2.loc[:, ['feid']+visit_dates+['Event_date']]
         dataset_final_final2 = dataset_final_final2.sort_values(by='feid', ascending=True)
-        print('final output')
+        print('Head of final dataframe:')
         print(dataset_final_final2.head(5))
         return dataset_final_final2
 
