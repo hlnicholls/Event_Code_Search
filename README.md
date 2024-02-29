@@ -6,7 +6,7 @@ Tested with Python version 3.9
 
 It is recommended that you first create a virtual environment before installing
 
-1. Clone/download this repository to your local computer.
+1. Clone/download this repository.
 2. In the terminal change the work directory to the repository's local lcoation.
 
 ```
