@@ -1,5 +1,4 @@
 # Adjust imports according to your package structure
-from event_code_search.modules.dataloader import DataLoader
 #from event_code_search.modules.dataorganiser import DataOrganiser
 from event_code_search.modules.eventsearcher import EventSearcher
 from event_code_search.modules.outputorganiser import OutputOrganiser
