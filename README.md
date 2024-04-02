@@ -38,12 +38,13 @@ pip install -e .
 ## Running:
 
 ```
-event_code_search --pkl_path /path_to_event_data.pkl --output_path /path_to_output --output_filename "final_output.csv" --icd10_codes I10 I11 --all_causes_death
+event_code_search --pkl_path /path_to_event_data.pkl --output_path /path_to_output --output_filename "final_output.csv" --icd10_codes I10 I11
 ```
 
 All code arguments in the command can either be entered as a space-separated list, or if you have a longer list of codes you can use a text file (one code per row in the file):
 ```--icd10_codes /path_to_codes/icd10_codes.txt```
 
+- Note: if you flag --all_causes_death it needs icd10 death codes to be listed in the command.
 
 ```
 event_code_search -h
