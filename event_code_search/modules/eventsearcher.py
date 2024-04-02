@@ -45,16 +45,19 @@ class EventSearcher(DataOrganiser):
 
     def search_events(self, icd10_codes=None, icd9_codes=None, death_icd10_codes=None, opcs4_codes=None, 
                     all_causes_death=False):
-
+    
         if icd10_codes:
             icd10_dict = self.organiser('icd10')
             print('Organiser ran for icd10_dict')
         if icd9_codes:
             icd9_dict = self.organiser('icd9')
+            print('Organiser ran for icd9_dict')
         if death_icd10_codes:
             death_icd10_dict = self.organiser('death_icd10')
+            print('Organiser ran for death_icd10_dict')
         if opcs4_codes:
             opcs4_dict = self.organiser('opcs4') 
+            print('Organiser ran for opcs4_dict')
         
         res_df = dict.fromkeys(['icd10', 'icd9', 'death_icd10', 'opcs4', 'visit_dates'])
 
@@ -128,6 +131,7 @@ class EventSearcher(DataOrganiser):
             res_df['death_icd10'] = pd.DataFrame({'feid':feid_list, 'death_icd10_date':dx_date_list})
         
         if all_causes_death:
+            print("Note: all-causes-death flag must also have icd10-death-codes defined")
             min_date = defaultdict(list)
             for k, v in death_icd10_dict.items():
                 for icd, date in v.items():
