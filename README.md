@@ -7,7 +7,7 @@ Tested with Python version 3.9
 It is recommended that you first create a virtual environment before installing
 
 1. Clone/download this repository.
-2. In the terminal change the work directory to the repository's local lcoation.
+2. In the terminal change the working directory to the repository's local location.
 
 ```
 cd  /user_path/event_code_search/
